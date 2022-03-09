@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import { useDispatch } from 'react-redux';
 // import { addItemToCartAction } from '../reduxStore';
 
-export default function ProductDisplay(props) {
+export default function ChocolateProducts(props) {
 
     // const dispatch = useDispatch();
 
@@ -22,7 +22,6 @@ export default function ProductDisplay(props) {
     const {
         productId,
         brand,
-        price,
         description,
         images,
     } = products;
@@ -44,23 +43,23 @@ export default function ProductDisplay(props) {
     return (
         <Card sx={{ mx: 'auto', maxWidth: 345 }} style={{ paddingTop: '10px' }}>
             <CardHeader
-                action={
-                    <Typography>${price / 100}</Typography>
-                }
+                // action={
+                //     <Typography>${price / 100}</Typography>
+                // }
                 title={description}
                 subheader={brand}
             />
-            {/* <CardMedia
+            <CardMedia
                 component="img"
-                height="194"
-                image={image}
-                alt="Paella dish"
+                height="300"
+                image={images}
+                alt={description}
             />
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
                     {description}
                 </Typography>
-            </CardContent> */}
+            </CardContent>
             <CardActions disableSpacing>
                 <Button variant="text" >Add to cart</Button>
                 <IconButton aria-label="add to favorites" sx={{ marginLeft: 'auto' }}>

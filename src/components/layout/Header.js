@@ -18,7 +18,7 @@ const Header = () => {
                     <Box sx={{ flexGrow: 1 }}>
                         <Link to="/">
                             <Typography variant="h6" component="div">
-                                My Music Store
+                                Milkman
                             </Typography>
                         </Link>
                     </Box>
