@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Layout from '../layout/Layout';
-import CreamerProducts from '../cards/CreamerProducts'
+import CreamerProduct from '../cards/CreamerProduct'
 import {
     Box,
     Typography,
@@ -17,34 +17,26 @@ function CoffeeCreamer() {
     const productState = useSelector(state => state.products);
     let filteredProductState = productState.filter(item => item.description.includes("Creamer"));
 
-
     return (
         <Layout>
             <Box p={4}>
                 {
-                    filteredProductState.map((product) => (
+                    filteredProductState.map((product, i) => (
                         <Box
-                            key={product.productId}
+                            key={i}
                             mb={4}
                             display="flex"
                             alignItems="center"
                         >
-                            {product.images.filter(item => item.perspective === "front").map(item => item.sizes.filter(item => item.size == "large").map(item =>
-                                <CreamerProducts
-                                    products={{
-                                        productId: product.productId,
-                                        brand: product.brand,
-                                        description: product.description,
-                                        images: item.url
-                                    }}
-                                />
-                            ))}
+                            <CreamerProduct
+                                product={product}
+                            />
                         </Box>
                     ))
                 }
             </Box>
         </Layout>
     )
-};
+}
 
 export default CoffeeCreamer

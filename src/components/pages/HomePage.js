@@ -25,14 +25,14 @@ const HomePage = (props) => {
                         Coffee Creamer
                     </Button>
                 </Link>
-                <Link to="/product-page">
+                <Link to="/lactose-free">
                     <Button>
-                        Products
+                        Lactose Free & Plant Base Milk
                     </Button>
                 </Link>
-                <Link to="/product-page">
+                <Link to="/natural-milk">
                     <Button>
-                        Products
+                       Natural Milk
                     </Button>
                 </Link>
             </Box>

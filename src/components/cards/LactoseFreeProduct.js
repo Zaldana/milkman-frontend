@@ -9,50 +9,61 @@ import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useDispatch } from 'react-redux';
-// import { addItemToCartAction } from '../reduxStore';
+import { addToCartActionCreator } from '../../reduxStore/cartState';
 
-export default function ChocolateProducts(props) {
+export default function LactoseFreeProduct(props) {
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     const {
-        products,
+        product,
     } = props;
 
-    const {
-        productId,
-        brand,
-        description,
-        images,
-    } = products;
+    //Image url
+    const imgObj = product.images.find(el => el.perspective === "front");
+    const imageSizeObj = imgObj.sizes.find(el => el.size === "large");
+    const image = imageSizeObj.url
 
-    // const handleAddToCart = () => {
-    //     console.log('This func has been call')
+    //Item price
+    const itemsObj = product.items.find(el => el.price);
+    const priceObj = itemsObj.price;
+    const price = priceObj.regular
 
-    //     dispatch({
-    //         type: addItemToCartAction,
-    //         cartItem: {
-    //             id: product.id,
-    //             title: product.title,
-    //             price: product.price,
-    //             image: product.image
-    //         }
-    //     })
-    // }
+    //Item Brand
+    const brand = product.brand;
+
+    //Item Id
+    const productId = product.productId;
+
+    //Item Description
+    const description = product.description;
+
+    //Item size
+
+
+    const handleAddToCart = () => {
+
+        dispatch(addToCartActionCreator(
+            productId,
+            brand,
+            price,
+            image,
+            description
+        ))
+
+    }
 
     return (
         <Card sx={{ mx: 'auto', maxWidth: 345 }} style={{ paddingTop: '10px' }}>
             <CardHeader
-                // action={
-                //     <Typography>${price / 100}</Typography>
-                // }
+                action={<Typography>${price}</Typography>}
                 title={description}
                 subheader={brand}
             />
             <CardMedia
                 component="img"
                 height="300"
-                image={images}
+                image={image}
                 alt={description}
             />
             <CardContent>
@@ -61,7 +72,7 @@ export default function ChocolateProducts(props) {
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
-                <Button variant="text" >Add to cart</Button>
+                <Button variant="text" onClick={handleAddToCart}>Add to cart</Button>
                 <IconButton aria-label="add to favorites" sx={{ marginLeft: 'auto' }}>
                     <FavoriteIcon />
                 </IconButton>

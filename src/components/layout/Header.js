@@ -23,7 +23,17 @@ const Header = () => {
                         </Link>
                     </Box>
                     {/* IF user is logged in show "hi, <user.firstName>" instead */}
-                   
+                    <Link to="/shopping-cart">
+                        <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{ ml: 1 }}
+                        >
+                            <ShoppingCartIcon />
+                        </IconButton>
+                    </Link >
                 </Toolbar>
             </AppBar>
         </Box>
