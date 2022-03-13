@@ -1,12 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../layout/Layout';
+import Search from '../search/Search';
 import {
     Box,
-    Typography,
-    Card,
-    CardContent,
-    CardActions, 
     Button
 } from '@mui/material';
 
@@ -14,23 +11,65 @@ const HomePage = (props) => {
 
     return (
         <Layout>
+            {/* <Box>
+                <Search />
+            </Box> */}
             <Box p={4}>
-                <Link to="/chocolate-milk">
+                <Link
+                    to={"/product-display"}
+                    state={{
+                        includes: ["Chocolate"],
+                        doesNotInclude: ["Creamer"]
+                    }}
+                >
                     <Button>
-                    Chocolate 
+                       Chocolate Milk
                     </Button>
                 </Link>
-                <Link to="/coffee-creamer">
+                <Link
+                    to={"/product-display"}
+                    state={{
+                        includes: [ "Creamer" ],
+                        doesNotInclude: ["Powder"]
+                    }}
+                >
                     <Button>
-                        Coffee Creamer
+                        Creamer
                     </Button>
                 </Link>
-                <Link to="/lactose-free">
+                <Link
+                    to={"/product-display"}
+                    state={{
+                        includes: [
+                            "Lactose",
+                            "Soy",
+                            "Almond",
+                            "Macademia",
+                            "Oat",
+                        ],
+                        doesNotInclude: [ "Creamer" ]
+                    }}
+                >
                     <Button>
-                        Lactose Free & Plant Base Milk
+                        Lactose Free & Plant Based Milk
                     </Button>
                 </Link>
-                <Link to="/natural-milk">
+                <Link
+                    to={"/product-display"}
+                    state={{
+                        includes: [ "Milk" ],
+                        doesNotInclude: [
+                            "Lactose",
+                            "Soy",
+                            "Almond",
+                            "Macademia",
+                            "Oat",
+                            "Coconut",
+                            "Chocolate",
+                            "Creamer"
+                        ],
+                    }}
+                >
                     <Button>
                        Natural Milk
                     </Button>

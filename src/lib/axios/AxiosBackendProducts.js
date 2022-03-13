@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-let url = "http://localhost:3001/api/product/"
+let url = "http://localhost:3001/"
 
-const AxiosBackendProducts = axios.create({
+const AxiosBackend = axios.create({
     baseURL: url,
     timeout: 50000,
 });
 
-export default AxiosBackendProducts
+export default AxiosBackend
