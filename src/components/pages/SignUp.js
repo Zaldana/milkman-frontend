@@ -25,6 +25,7 @@ function SignIn() {
         firstName: '',
         lastName: '',
         email: '',
+        address: '',
         password: '',
     })
 

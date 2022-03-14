@@ -6,6 +6,7 @@ import AdminProductCard from '../cards/AdminProductCard';
 import ReactPaginate from "react-paginate";
 import { useLocation } from 'react-router-dom';
 import AxiosBackend from '../../lib/axios/AxiosBackend';
+import Search from '../search/Search';
 
 import {
     Box,
@@ -34,6 +35,9 @@ function ProductDisplay() {
     const location = useLocation();
     const user = useSelector(state => state.user);
    
+
+
+
     const includesArray = location.state.includes;
     const includes = new RegExp(includesArray.join('|'));
     const doesNotIncludeArray = location.state.doesNotInclude;
@@ -54,6 +58,9 @@ function ProductDisplay() {
 
   return (
       <Layout>
+          <Box p={4}>
+              <Search />
+          </Box>
           {
               filteredProductState.length > 1 ? (
                   <Box spacing={2}>

@@ -11,9 +11,9 @@ const HomePage = (props) => {
 
     return (
         <Layout>
-            {/* <Box>
+            <Box p={4}>
                 <Search />
-            </Box> */}
+            </Box>
             <Box p={4}>
                 <Link
                     to={"/product-display"}

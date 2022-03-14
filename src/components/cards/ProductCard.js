@@ -38,12 +38,15 @@ export default function ProductCard(props) {
     //Item Description
     const description = product.description;
 
-    //Item size
+    //MongoDb Id
+    const mongoId = product._id
 
+    //Item size
 
     const handleAddToCart = () => {
 
         dispatch(addToCartActionCreator(
+            mongoId,
             productId,
             brand,
             price,

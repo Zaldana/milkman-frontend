@@ -1,30 +1,53 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { useSelector } from 'react-redux';
+import AxiosBackend from '../../lib/axios/AxiosBackend';
+import { Link } from 'react-router-dom';
+import {
+    Box,
+    Button
+} from '@mui/material';
 
 function Search() {
 
-    const productState = useSelector(state => state.products);
+    const [ search, setSearch ] = useState("")
+
+
+    function onChange(event) {
+
+        let inputFormat = event && event[ 0 ].toUpperCase() + event.slice(1)
+        setSearch(inputFormat)
+    }
 
     return (
-        <Stack spacing={2} sx={{ width: 500 }}>
-            <Autocomplete
-                id="size-large-standard"
+        <Stack direction="row" spacing={2} sx={{ width: 500 }}>
+            
+            <TextField
+                id="filled-large"
+                label="Search"
+                variant="filled"
                 size="large"
-                options={productState}
-                getOptionLabel={(option) => option.description}
-                defaultValue={productState[ 13 ]}
-                renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        variant="standard"
-                        label="Search"
-                        placeholder="Favorites"
-                    />
-                )}
+                value={search}
+                onChange={(event) => {
+                    onChange( event.target.value );
+                }}
+                placeholder="Search Products"
             />
+            <Link
+                to={"/product-display"}
+                state={{
+                    includes: [ search ],
+                    doesNotInclude: [ "Powder" ]
+                }}
+            >
+                <Button>
+                   Search
+                </Button>
+            </Link>
+                
+
         </Stack>
     )
 }

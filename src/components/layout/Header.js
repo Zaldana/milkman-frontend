@@ -6,6 +6,7 @@ import { AccountCircle } from '@mui/icons-material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Badge from '@mui/material/Badge';
 import AxiosBackend from '../../lib/axios/AxiosBackend';
+import logo from '../../images/logo.png'
 import {
     AppBar,
     Box,
@@ -70,11 +71,12 @@ const Header = () => {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <Box sx={{ flexGrow: 1 }}>
+                    <Box alignItems="flexStart" padding={1} sx={{ flexGrow: 1,  }}>
                         <Link to="/">
-                            <Typography variant="h6" component="div">
+                            <Typography variant="h6">
                                 Milkman
                             </Typography>
+                            <img src={logo} style={{ width: 50, height: 50}}/>
                         </Link>
                     </Box>
          

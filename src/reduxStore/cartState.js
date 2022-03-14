@@ -36,6 +36,7 @@ export const shoppingCartReducer = (state = shoppingCartInitialState, action) =>
 };
 
 export const addToCartActionCreator = (
+    mongoId,
     productId,
     brand,
     price,
@@ -46,6 +47,7 @@ export const addToCartActionCreator = (
     dispatch({
         type: ADD_ITEM_TO_CART_ACTION,
         cartItem: {
+            _id: mongoId,
             productId: productId,
             brand: brand,
             price: price,
