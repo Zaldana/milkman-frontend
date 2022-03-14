@@ -4,7 +4,6 @@ export const SIGN_OUT_ACTION = "milkman.com/signOut";
 export const userReducer = (state = null, action) => {
 
     if (action.type === SIGN_IN_ACTION) {
-        console.log("userDataPassed:", action.payload.userData);
         return action.payload.userData;
     }
 
@@ -25,3 +24,4 @@ export const signInActionCreator = (userData) => async (dispatch, getState) => {
         });
 
 };
+

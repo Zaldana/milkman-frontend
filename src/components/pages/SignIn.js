@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { signInActionCreator } from '../../reduxStore/userState';
 import Layout from '../layout/Layout';
-import AxiosBackend from '../../lib/axios/AxiosBackendProducts';
+import AxiosBackend from '../../lib/axios/AxiosBackend';
 import { useNavigate } from "react-router-dom";
 import {
     Box,
@@ -21,8 +21,8 @@ function SignIn() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const userState = useSelector(state => state.user);
 
+    const [ isAdmin, setIsAdmin ] = useState("")
     const [ signInForm, setSignInForm ] = useState({
         email: '',
         password: '',
@@ -40,17 +40,20 @@ function SignIn() {
                 },
             )
                 .then(response => {
-                
-                dispatch(signInActionCreator(response.data))
-                    
-                    if (userState.isAdmin) {
+     
+                    dispatch(signInActionCreator(response.data.user))
+
+                    if (response.data.user.isAdmin === true) {
+
                         navigate('/admin');
+
                     } else {
+
                         navigate('/user')
                     }
                 })
             
-        
+           
            
         } catch (e) {
 
@@ -95,6 +98,7 @@ function SignIn() {
                             <TextField
                                 id="filled-large"
                                 label="Password"
+                                type="password"
                                 variant="filled"
                                 size="large"
                                 value={signInForm.password}

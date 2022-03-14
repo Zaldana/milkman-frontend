@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import { useDispatch } from 'react-redux';
 import { addToCartActionCreator } from '../../reduxStore/cartState';
 
-export default function NaturalProduct(props) {
+export default function ProductCard(props) {
 
     const dispatch = useDispatch();
 

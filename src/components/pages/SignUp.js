@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import Layout from '../layout/Layout';
-import AxiosBackend from '../../lib/axios/AxiosBackendProducts';
+import AxiosBackend from '../../lib/axios/AxiosBackend';
 import { useNavigate } from "react-router-dom";
 import Alert from '@mui/material/Alert';
 import {
@@ -31,12 +31,11 @@ function SignIn() {
     async function handleUserSignUp(e) {
 
         e.preventDefault();
-        console.log(signUpForm);
-
+ 
         try {
 
             let payload = await AxiosBackend.post(
-                'users/create-user/', {
+                'create-user/', {
                 user: signUpForm
             },
             )
@@ -114,6 +113,7 @@ function SignIn() {
                             <TextField
                                 id="filled-large"
                                 label="Password"
+                                type="password"
                                 variant="filled"
                                 size="large"
                                 value={signUpForm.password}
@@ -124,7 +124,7 @@ function SignIn() {
                         </Stack>
                     </CardContent>
                     <CardActions sx={{ justifyContent: 'center' }}>
-                        <Button onClick={handleUserSignUp} variant='contained'>Log In User</Button>
+                        <Button onClick={handleUserSignUp} variant='contained'>Create User</Button>
                     </CardActions>
                 </Card>
             </Box>

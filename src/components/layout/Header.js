@@ -5,6 +5,7 @@ import { SIGN_OUT_ACTION } from '../../reduxStore/userState';
 import { AccountCircle } from '@mui/icons-material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Badge from '@mui/material/Badge';
+import AxiosBackend from '../../lib/axios/AxiosBackend';
 import {
     AppBar,
     Box,
@@ -59,7 +60,9 @@ const Header = () => {
     const handleCloseUserMenuSignedIn = () => {
         
         setAnchorElUser(null);
-        dispatch({ type: SIGN_OUT_ACTION });
+        AxiosBackend.get('/sign-out').then(() => {
+            dispatch({ type: SIGN_OUT_ACTION });
+        }).catch(error => console.log('there was an error signing out'))
 
     };
 
@@ -82,15 +85,24 @@ const Header = () => {
                                 <Link to="/admin">
                                     <Button color="inherit">admin</Button>
                                 </Link>
+                                
                             )
                         }
 
                     </Box>
-                        
+                    <Box>
+                        {
+                            user && !user.isAdmin && (
+                                <Box mr={4}>
+                                    <Link to="/user">Hi, {user.firstName}</Link>
+                                </Box>
+                            )
+                        }
+
+                    </Box>
                     {
-                        user ?
+                        user ? (
                             <Box>
-                                <Link to="/user">Hi, {user.firstName}</Link>
                                 <Box sx={{ flexGrow: 0 }}>
                                     <Tooltip title="Open settings">
                                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -123,7 +135,7 @@ const Header = () => {
                                     </Menu>
                                 </Box>
                             </Box>
-                            : (
+                            ) : (
                                 <Box sx={{ flexGrow: 0 }}>
                                     <Tooltip title="Open settings">
                                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -156,7 +168,8 @@ const Header = () => {
                                     </Menu>
                                 </Box>
                             )
-                    }
+                        }
+              
                     <Link to="/shopping-cart">
                         <IconButton
                             size="large"

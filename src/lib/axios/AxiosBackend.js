@@ -4,7 +4,7 @@ let url = "http://localhost:3001/"
 
 const AxiosBackend = axios.create({
     baseURL: url,
-    timeout: 50000,
+    withCredentials: true,
 });
 
 export default AxiosBackend

@@ -2,8 +2,10 @@ import React, { useState, useEffect  } from 'react';
 import { useSelector } from 'react-redux';
 import Layout from '../layout/Layout';
 import ProductCard from '../cards/ProductCard'
+import AdminProductCard from '../cards/AdminProductCard';
 import ReactPaginate from "react-paginate";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import AxiosBackend from '../../lib/axios/AxiosBackend';
 
 import {
     Box,
@@ -12,41 +14,39 @@ import {
 
 function ProductDisplay() {
 
-    const location = useLocation();
+   
+    const [ productState, setProductState ] = useState([])
 
+    useEffect(() => {
+
+        async function fetchProducts() {
+            let productsResult = await AxiosBackend.get(
+                'get-products',
+            );
+            
+            setProductState(productsResult.data)
+        }
+
+        fetchProducts()
+
+    }, [])
+    
+    const location = useLocation();
+    const user = useSelector(state => state.user);
+   
     const includesArray = location.state.includes;
     const includes = new RegExp(includesArray.join('|'));
     const doesNotIncludeArray = location.state.doesNotInclude;
     const doesNotInclude = new RegExp(doesNotIncludeArray.join('|'));
 
-    const productState = useSelector(state => state.products);
     let filteredProductState = productState
         .filter(item => includes.test(item.description) && !doesNotInclude.test(item.description));
-   
-    const [ products, setProducts ] = useState(filteredProductState);
+
     const [ pageNumber, setPageNumber ] = useState(0);
 
-    const productsPerPage = 16;
+    const productsPerPage = 10;
     const pagesVisited = pageNumber * productsPerPage;
-
-    const displayProducts = products
-        .slice(pagesVisited, pagesVisited + productsPerPage)
-        .map((product, i) => {
-            return (
-                <Box
-                    key={i}
-                    mb={4}
-                    display="flex"
-                    alignItems="center"
-                >
-                    <ProductCard
-                        product={product}
-                    />
-                </Box>
-            );
-        });
-
-    const pageCount = Math.ceil(products.length / productsPerPage);
+    const pageCount = Math.ceil(filteredProductState.length / productsPerPage);
 
     const changePage = ({ selected }) => {
         setPageNumber(selected);
@@ -54,33 +54,69 @@ function ProductDisplay() {
 
   return (
       <Layout>
-            <Box>
-                {
-                    products.length > 1 ? (
+          {
+              filteredProductState.length > 1 ? (
+                  <Box spacing={2}>
+                      {
+                          user && user.isAdmin ? (
+                              filteredProductState.slice(pagesVisited, pagesVisited + productsPerPage)
+                                  .map((product, i) => {
+                                      return (
+                                          <Box
+                                              key={i}
+                                              mb={4}
+                                              display="flex"
+                                              alignItems="center"
+                                          >
+                                              <AdminProductCard
+                                                  product={product}
+                                                  setProductState={setProductState}
+                                                  productState={productState}
+                                              />
 
-                        <Box spacing={2}>
-                            {displayProducts}
-                            <ReactPaginate
-                                previousLabel={"Previous"}
-                                nextLabel={"Next"}
-                                pageCount={pageCount}
-                                onPageChange={changePage}
-                                containerClassName={"paginationBttns"}
-                                previousLinkClassName={"previousBttn"}
-                                nextLinkClassName={"nextBttn"}
-                                disabledClassName={"paginationDisabled"}
-                                activeClassName={"paginationActive"}
-                            />
+                                          </Box>
+                                          
+                                      );
+                                  })
+                          ) : (
+                                  filteredProductState.slice(pagesVisited, pagesVisited + productsPerPage)
+                                  .map((product, i) => {
+                                      return (
+                                          <Box
+                                              key={i}
+                                              mb={4}
+                                              display="flex"
+                                              alignItems="center"
+                                          >
+                                              <ProductCard
+                                                  product={product}
+                                              />
+                                          </Box>
+                                      );
+                                  })
+                          )
+                      }
 
-                        </Box>
-                    ) : (
-                        <Box>
-                            <Typography>Loading</Typography>
-                        </Box>
-                    )
-                }
-            </Box>
-        </Layout>
+                      <ReactPaginate
+                          previousLabel={"Previous"}
+                          nextLabel={"Next"}
+                          pageCount={pageCount}
+                          onPageChange={changePage}
+                          containerClassName={"paginationBttns"}
+                          previousLinkClassName={"previousBttn"}
+                          nextLinkClassName={"nextBttn"}
+                          disabledClassName={"paginationDisabled"}
+                          activeClassName={"paginationActive"}
+                      />
+                  </Box>
+
+              ): (
+                    <Box>
+                        <Typography>Loading</Typography>
+                    </Box >
+              )
+          }
+    </Layout>
     )
 };
 

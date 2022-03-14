@@ -5,7 +5,6 @@ const ADD_ITEM_TO_CART_ACTION = 'milkman.com/addItemToCart';
 const REMOVE_ITEM_FROM_CART_ACTION = 'milkman.com/removeItemFromCart';
 const EMPTY_CART_ACTION = 'milkman.com/emptyCart';
 
-
 export const shoppingCartReducer = (state = shoppingCartInitialState, action) => {
 
     if (action.type === SIGN_OUT_ACTION) {
