@@ -27,16 +27,16 @@ const CartItem = (props) => {
     }
 
     return (
-        <Card sx={{ display: 'flex' }}>
+        <Card sx={{ display: 'flex', maxWidth: 800, flexGrow: 1 }}>
             <Box display="flex" flexDirection="column" justifyContent="center">
                 <CardMedia
                     component="img"
-                    sx={{ height: 80, maxWidth: 80, p: 2 }}
+                    sx={{ height: 80, maxWidth: 50, p: 1, mr: 6}}
                     image={image}
                     alt="Live from space album cover"
                 />
             </Box>
-            <Box display="flex" flexDirection="column" justifyContent="center" flexGrow={1}>
+            <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", flexGrow: 1 }}  >
                 <Box mb={1}>
                     <Typography fontWeight="bold">${price} {brand} </Typography>
                 </Box>

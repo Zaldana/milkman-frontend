@@ -143,22 +143,16 @@ export default function AdminProductCard(props) {
     }
          
     return (
-        <Card sx={{ mx: 'auto', maxWidth: 345 }} style={{ paddingTop: '10px' }}>
-            <CardHeader
-                action={<Typography>${price}</Typography>}
-                title={description}
-                subheader={brand}
-            />
+        <Card sx={{ mx: 'auto', width: 300, height: 430 }} style={{ padding: '4px' }}>
             <CardMedia
                 component="img"
-                height="300"
+                height="270"
                 image={image}
                 alt={description}
             />
             <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                    {description}
-                </Typography>
+                <Typography variant="h7">{brand}</Typography>
+                <Typography variant="body2" color="text.secondary">{description}</Typography>
             </CardContent>
             <CardActions sx={{ justifyContent: "center", paddingRight: 3, paddingBottom: 3 }}>
                 <Button variant="contained" color="primary" onClick={handleOpen}>Edit Item</Button>

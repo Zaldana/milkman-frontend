@@ -54,10 +54,11 @@ const ShoppingCart = (props) => {
 
     return (
         <Layout>
-            <Box p={4}>
+            <Box fullwidth p={4}>
                 {cart.map(item => (
-                    <Box mb={4} key={item.productId}>
+                    <Box mb={4} key={item.productId} sx={{ display: "flex", justifyContent: "center"}}>
                         <CartItem
+                    
                             cartItem={{
                                 productId: item.productId,
                                 brand: item.brand,
