@@ -22,13 +22,23 @@ function Search() {
     }
 
     return (
-        <Stack direction="row" spacing={2} sx={{ width: 500 }}>
+        <Stack
+            direction="row"
+            spacing={2}
+            sx={{
+                alignItems: "center",
+                justifyContent: "center",
+                width: "100%",
+                paddingLeft: 3,
+                paddingRight: 3
+            }}>
             
             <TextField
+                fullWidth
                 id="filled-large"
                 label="Search"
-                variant="filled"
-                size="large"
+                variant="outlined"
+                size="small"
                 value={search}
                 onChange={(event) => {
                     onChange( event.target.value );
@@ -42,7 +52,7 @@ function Search() {
                     doesNotInclude: [ "Powder" ]
                 }}
             >
-                <Button>
+                <Button variant="contained" >
                    Search
                 </Button>
             </Link>

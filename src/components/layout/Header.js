@@ -21,21 +21,12 @@ import {
 
 
 const dropdownMenu = [
-    {
-        text: "Log-In",
-        link: "/sign-in"
-    },
-    {
-        text: "Sign-Up",
-        link: "/sign-up"
-    }
+    { text: "Log-In", link: "/sign-in"},
+    { text: "Sign-Up", link: "/sign-up"}
 ];
 
 const dropdownMenuSignedIn = [
-    {
-        text: "Sign-Out",
-        link: "/"
-    },
+    { text: "Sign-Out", link: "/"},
 ];
 
 const Header = () => {
@@ -64,43 +55,45 @@ const Header = () => {
         AxiosBackend.get('/sign-out').then(() => {
             dispatch({ type: SIGN_OUT_ACTION });
         }).catch(error => console.log('there was an error signing out'))
-
     };
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar position="static" style={{ background: '#c2ddff' }}>
                 <Toolbar>
-                    <Box alignItems="flexStart" padding={1} sx={{ flexGrow: 1,  }}>
-                        <Link to="/">
-                            <Typography variant="h6">
+                    <Box >
+                        <Link to="/" style={{ color: "#172e42",textDecoration: "none"}}>
+                            <Typography variant="h6" style={{ fontFamily: "'Fredoka One', cursive" }} sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
                                 Milkman
                             </Typography>
-                            <img src={logo} style={{ width: 50, height: 50}}/>
                         </Link>
                     </Box>
-         
+                    <Box sx={{ paddingLeft: 1, flexGrow: 1 }}>
+                        <Link to="/">
+                            <img src={logo} alt="milkman logo" style={{ height: 35 }} />
+                        </Link>
+                    </Box>
                     <Box mr={4}>
-
                         {
                             user && user.isAdmin && (
                                 <Link to="/admin">
                                     <Button color="inherit">admin</Button>
                                 </Link>
-                                
                             )
                         }
-
                     </Box>
                     <Box>
                         {
                             user && !user.isAdmin && (
                                 <Box mr={4}>
-                                    <Link to="/user">Hi, {user.firstName}</Link>
+                                    <Link to="/user" style={{ color: "white", textDecoration: "none" }}>
+                                        <Typography style={{ color: "#172e42", fontFamily: "'Fredoka One', cursive" }}>
+                                            Hi, {user.firstName}
+                                        </Typography>
+                                    </Link>
                                 </Box>
                             )
                         }
-
                     </Box>
                     {
                         user ? (
@@ -171,7 +164,6 @@ const Header = () => {
                                 </Box>
                             )
                         }
-              
                     <Link to="/shopping-cart">
                         <IconButton
                             size="large"
@@ -185,7 +177,6 @@ const Header = () => {
                             </Badge>
                         </IconButton>
                     </Link >
-                   
                 </Toolbar>
             </AppBar>
         </Box>
