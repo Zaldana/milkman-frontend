@@ -38,10 +38,7 @@ const CartItem = (props) => {
             </Box>
             <Box display="flex" flexDirection="column" justifyContent="center" flexGrow={1}>
                 <Box mb={1}>
-                    <Typography fontWeight="bold">{brand}</Typography>
-                </Box>
-                <Box>
-                    <Typography fontWeight="bold">${price}</Typography>
+                    <Typography fontWeight="bold">${price} {brand} </Typography>
                 </Box>
             </Box>
             <Box display="flex" flexDirection="column" justifyContent="center">

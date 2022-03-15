@@ -27,29 +27,29 @@ const ShoppingCart = (props) => {
    
     const handleCheckOut = async () => {
      
-        let purchaseHistory = []
-        const idArray = cart.map(item => item._id)
-        purchaseHistory.push(idArray)
+        // let purchaseHistory = []
+        // const idArray = cart.map(item => item._id)
+        // purchaseHistory.push(idArray)
         
-        try {
+        // try {
 
-            let payload = await AxiosBackend.put(
-                'edit-user/',
-                {
-                    userUpdateForm: {
-                        shoppingHistory: purchaseHistory
-                    }
-                },
-            )
+        //     let payload = await AxiosBackend.put(
+        //         'edit-user/',
+        //         {
+        //             userUpdateForm: {
+        //                 shoppingHistory: purchaseHistory
+        //             }
+        //         },
+        //     )
 
-            dispatch(emptyCartActionCreator())
-            navigate('/')
+        //     dispatch(emptyCartActionCreator())
+        //     navigate('/')
 
-        } catch (e) {
+        // } catch (e) {
 
-            console.log(e);
+        //     console.log(e);
 
-        }
+        // }
     }
 
     return (

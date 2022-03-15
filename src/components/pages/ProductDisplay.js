@@ -6,7 +6,9 @@ import AdminProductCard from '../cards/AdminProductCard';
 import ReactPaginate from "react-paginate";
 import { useLocation } from 'react-router-dom';
 import AxiosBackend from '../../lib/axios/AxiosBackend';
+import Pattern from '../../images/pattern.jpg';
 import Search from '../search/Search';
+import Buttons from '../cards/Buttons';
 
 import {
     Box,
@@ -34,9 +36,6 @@ function ProductDisplay() {
     
     const location = useLocation();
     const user = useSelector(state => state.user);
-   
-
-
 
     const includesArray = location.state.includes;
     const includes = new RegExp(includesArray.join('|'));
@@ -48,7 +47,7 @@ function ProductDisplay() {
 
     const [ pageNumber, setPageNumber ] = useState(0);
 
-    const productsPerPage = 10;
+    const productsPerPage = 8;
     const pagesVisited = pageNumber * productsPerPage;
     const pageCount = Math.ceil(filteredProductState.length / productsPerPage);
 
@@ -58,12 +57,60 @@ function ProductDisplay() {
 
   return (
       <Layout>
-          <Box p={4}>
+          <Box sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
+          }} fullWidth pl={4} pr={4} pt={4} pb={2}>
               <Search />
           </Box>
+          <Box
+              pl={6} pr={6}
+              style={{
+                  height: "auto",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center"
+              }}>
+              <Box
+                  sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      flexGrow: 1,
+                      borderRadius: "10px",
+                      height: "auto",
+                      width: "55%",
+                      boxShadow: "7px 7px 6px 1px rgba(0, 0, 255, .15)",
+                      backgroundImage: `url(${Pattern})`,
+                  }}
+              >
+                  <Typography
+                      p={9}
+                      variant="h3"
+                      style={{
+                          fontFamily: "'Fredoka One', cursive",
+                          color: "#172e42",
+                          textAlign: "center",
+                          color: "white",
+                          textShadow: "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
+                      }}
+                  >
+                      Milkman.com
+                  </Typography>
+              </Box>
+          </Box>
+          <Buttons />
           {
               filteredProductState.length > 1 ? (
-                  <Box spacing={2}>
+                  <Box
+                      pl={4} pr={4}
+                      style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          justifyContent: "center"
+                      }}
+                  >
                       {
                           user && user.isAdmin ? (
                               filteredProductState.slice(pagesVisited, pagesVisited + productsPerPage)
@@ -71,9 +118,7 @@ function ProductDisplay() {
                                       return (
                                           <Box
                                               key={i}
-                                              mb={4}
-                                              display="flex"
-                                              alignItems="center"
+                                              m={4}
                                           >
                                               <AdminProductCard
                                                   product={product}
@@ -91,9 +136,7 @@ function ProductDisplay() {
                                       return (
                                           <Box
                                               key={i}
-                                              mb={4}
-                                              display="flex"
-                                              alignItems="center"
+                                              m={4}
                                           >
                                               <ProductCard
                                                   product={product}
@@ -118,8 +161,24 @@ function ProductDisplay() {
                   </Box>
 
               ): (
-                    <Box>
-                        <Typography>Loading</Typography>
+                      <Box
+                          style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "Center",
+                              marginTop: 70                            
+                          }}
+                      >
+                          <Typography
+                              variant="h2"
+                              style={{
+                                  fontFamily: "'Fredoka One', cursive",
+                                  textAlign: "center",
+                                  textShadow: "5px 5px 5px #19d2ff"
+                              }}
+                          >
+                              Loading...
+                          </Typography>
                     </Box >
               )
           }

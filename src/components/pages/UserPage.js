@@ -62,17 +62,7 @@ function UserPage() {
 
   return (
     <Layout>
-      <Box 
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-          backgroundSize: "cover",
-          height: "100vh",
-          width: "100%",
-          color: "#f5f5f5",
-          position: "fixed"
-        }}
-      >
- 
+      <Box>
           <Box sx={{
             mx: 'auto',
             maxWidth: 600,
@@ -81,26 +71,23 @@ function UserPage() {
             fontSize: '0.875rem',
             fontWeight: '700',
           }}>
-        
       <Box>
           <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
               id="panel1a-header"
-              sx={{
-                backgroundColor: "blue"
-              }}
+                style={{ background: '#c2ddff' }}
           >
-              <Typography sx={{ mx: 5 }}>{user.firstName}'s Profile</Typography>
+                <Typography sx={{ fontWeight: 'bold', mx: 1 }}>{user.firstName}'s Profile</Typography>
           </AccordionSummary>
-            <AccordionDetails sx={{ mx: 5 }}>
+            <AccordionDetails sx={{ mx: 1 }}>
               <br />
-              <Typography>First Name: {user.firstName}</Typography>
+                <Typography><b>First Name: </b> {user.firstName}</Typography>
               <br />
-              <Typography>Last Name: {user.lastName}</Typography>
+                <Typography><b>Last Name: </b> {user.lastName}</Typography>
               <br />
-              <Typography>Address: {user.address}</Typography>
+                <Typography><b>Address:  </b>{user.address}</Typography>
               <br />
               <div>
                 <Box>
@@ -112,32 +99,41 @@ function UserPage() {
                   aria-labelledby="modal-modal-title"
                   aria-describedby="modal-modal-description"
                 >
-                  <Box sx={style}>
+                  <Box sx={style.modal}>
                       <Box>
-                        <h4>Upload Product</h4>
+                        <h4>Update Profile</h4>
                       </Box>
                       <Box pb={3}>
                         <TextField
+                          sx={{
+                            width: "100%"
+                          }}
                           id="filled-large"
                           label="First Name"
                           variant="filled"
                           size="large"
-                        value={userUpdateForm.firstName}
+                          value={userUpdateForm.firstName}
                           onChange={(event) => {
                             setUserUpdateForm({ ...userUpdateForm, firstName: event.target.value });
                           }}
                         />
                         <TextField
+                          sx={{
+                            width: "100%"
+                          }}
                           id="filled-large"
                           label="Last Name"
                           variant="filled"
                           size="large"
-                        value={userUpdateForm.lastName}
+                          value={userUpdateForm.lastName}
                           onChange={(event) => {
                             setUserUpdateForm({ ...userUpdateForm, lastName: event.target.value });
                           }}
                         />
                         <TextField
+                          sx={{
+                            width: "100%"
+                          }}
                           id="filled-large"
                           label="Address"
                           variant="filled"
@@ -147,8 +143,8 @@ function UserPage() {
                             setUserUpdateForm({ ...userUpdateForm, address: event.target.value });
                           }}
                         />
-                      <Box>
-                        <Button variant="contained" onClick={handleUpdateUser}>Upload product</Button>
+                      <Box mx={1}>
+                        <Button variant="contained" onClick={handleUpdateUser}>Update Profile</Button>
                       </Box>
                     </Box>
                   </Box>
@@ -156,7 +152,7 @@ function UserPage() {
               </div>
           </AccordionDetails>
         </Accordion>
-        <Accordion>
+        {/* <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel2a-content"
@@ -170,7 +166,7 @@ function UserPage() {
               malesuada lacus ex, sit amet blandit leo lobortis eget.
             </Typography>
           </AccordionDetails>
-        </Accordion>
+        </Accordion> */}
         
         </Box>
       </Box>
@@ -187,7 +183,7 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    maxWidth: 400,
     bgcolor: 'background.paper',
     border: '1px solid #000',
     borderRadius: "10px",
@@ -197,8 +193,4 @@ const style = {
     flexDirection: "column",
     alignItems: "center"
   },
-  background: {
-    backgroundImage: `url(${backgroundImage})`,
-    objectFit: 'cover'
-  }
 }

@@ -1,16 +1,35 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import Layout from '../layout/Layout';
 import Search from '../search/Search';
-import Hero from '../../images/hero.jpg'
-import Pattern from '../../images/pattern.jpg'
+import AxiosBackend from '../../lib/axios/AxiosBackend';
+import Pattern from '../../images/pattern.jpg';
+import ProductCard from '../cards/ProductCard'
+import Buttons from '../cards/Buttons';
 import {
     Box,
-    Button,
     Typography
 } from '@mui/material';
 
 const HomePage = (props) => {
+
+    const [ previewProducts, setPreviewProducts ] = useState([])
+
+    function getMultipleRandom(arr, num) {
+        const shuffled = [ ...arr ].sort(() => 0.5 - Math.random());
+
+        return shuffled.slice(0, num);
+    }
+
+    useEffect(() => {
+
+        async function fetchProducts() {
+            let productsResult = await AxiosBackend.get(
+                'get-products',
+            );
+            setPreviewProducts(getMultipleRandom(productsResult.data, 4))
+        }
+        fetchProducts()
+    }, [])
 
     return (
         <Layout>
@@ -33,6 +52,7 @@ const HomePage = (props) => {
                
                 <Box
                     sx={{
+                      
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
@@ -58,83 +78,60 @@ const HomePage = (props) => {
                         Milkman.com
                     </Typography>
                 </Box>
-                
             </Box>
+            <Buttons />
+            <Typography
+                mt={5} ml={5}
+                variant="h6"
+                sx={{ fontFamily: "Roboto",}}
+            >
+                FEATURED PRODUCTS
+            </Typography>
             <Box
-                pl={8} pr={8} mt={5}
-                sx={{
+                pl={4} pr={4}
+                style={{
                     display: "flex",
-                    justifyContent: "space-between",
                     flexWrap: "wrap",
-                    alignText: "center",
-                    alignItems: "center"
+                    justifyContent: "center",
+                    backgroundColor: "#efefef"
                 }}
             >
-                <Link
-                    to={"/product-display"}
-                    state={{
-                        includes: ["Chocolate"],
-                        doesNotInclude: ["Creamer"]
-                    }}
-                >
-                    <Box
-                        style={{
-                            height: 100,
-                            width: 200,
-                            border: "4 solid red",
-                            justifyContent: "center"
-                        }}>
-                        <Typography>Chocolate Milk</Typography>
-                    </Box>
-                </Link>
-                <Link
-                    to={"/product-display"}
-                    state={{
-                        includes: [ "Creamer" ],
-                        doesNotInclude: ["Powder"]
-                    }}
-                >
-                    <Box>
-                        Creamer
-                    </Box>
-                </Link>
-                <Link
-                    to={"/product-display"}
-                    state={{
-                        includes: [
-                            "Lactose",
-                            "Soy",
-                            "Almond",
-                            "Macademia",
-                            "Oat",
-                        ],
-                        doesNotInclude: [ "Creamer" ]
-                    }}
-                >
-                    <Box>
-                        Lactose Free & Plant Based Milk
-                    </Box>
-                </Link>
-                <Link
-                    to={"/product-display"}
-                    state={{
-                        includes: [ "Milk" ],
-                        doesNotInclude: [
-                            "Lactose",
-                            "Soy",
-                            "Almond",
-                            "Macademia",
-                            "Oat",
-                            "Coconut",
-                            "Chocolate",
-                            "Creamer"
-                        ],
-                    }}
-                >
-                    <Box>
-                       Natural Milk
-                    </Box>
-                </Link>
+            {
+                previewProducts.length > 1 ? (
+                        previewProducts.map((product, i) => {
+                                return (
+                                    <Box
+                                        key={i}
+                                        m={4}
+                                    >
+                                        <ProductCard
+                                            product={product}
+                                        />
+                                    </Box>
+                                );
+                            })
+                ) : (
+                            <Box
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "Center",
+                                    marginTop: 70
+                                }}
+                            >
+                                <Typography
+                                    variant="h2"
+                                    style={{
+                                        fontFamily: "'Fredoka One', cursive",
+                                        textAlign: "center",
+                                        textShadow: "5px 5px 5px #19d2ff"
+                                    }}
+                                >
+                                    Loading...
+                                </Typography>
+                            </Box >
+                )
+            }
             </Box>
         </Layout>
     )

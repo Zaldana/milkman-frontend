@@ -67,14 +67,22 @@ function SignIn() {
             <Box sx={{
                 mx: 'auto',
                 minWidth: 300,
+
                 p: 2,
                 m: 'auto',
                 textAlign: 'center',
                 fontSize: '0.875rem',
                 fontWeight: '700',
+                display: 'flex',
+                justifyContent: "center"
             }}>
-                <Card sx={{ minWidth: 275 }}>
+                <Card sx={{
+                    maxWidth: 700,
+                    padding: 3,
+                    marginTop: 10,
+                }}>
                     <CardContent >
+                        <Typography variant="h3" pb={3}>Log In</Typography>
                         <Stack
                             component="form"
                             sx={{

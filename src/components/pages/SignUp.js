@@ -1,24 +1,20 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
 import Layout from '../layout/Layout';
 import AxiosBackend from '../../lib/axios/AxiosBackend';
 import { useNavigate } from "react-router-dom";
-import Alert from '@mui/material/Alert';
 import {
     Box,
-    Typography,
     Card,
     CardActions,
     Button,
     Stack,
     TextField,
-    CardContent
+    CardContent,
+    Typography
 } from '@mui/material';
-
 
 function SignIn() {
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [ signUpForm, setSignUpForm ] = useState({
@@ -42,12 +38,11 @@ function SignIn() {
             )
                 .then(
                     navigate("/sign-in")
-                )
-
+            )
+            
         } catch (e) {
 
             console.log(e);
-
         }
     }
 
@@ -66,21 +61,22 @@ function SignIn() {
                 justifyContent: "center"
             }}>
                 <Card sx={{
-                    minWidth: 275,
                     maxWidth: 700,
                     padding: 3,
+                    marginTop: 10,
                 }}>
                     <CardContent >
                         <Stack
                             component="form"
                             sx={{
-                                width: '60ch',
+                                width: '100%',
                                 m: 'auto'
                             }}
                             spacing={2}
                             noValidate
                             autoComplete="off"
                         >
+                            <Typography variant="h3" pb={3}>Sign Up</Typography>
                             <TextField
                                 id="filled-large"
                                 label="First Name"

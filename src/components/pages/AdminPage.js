@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Layout from '../layout/Layout';
-import { Box, Button, Card, TextField, Modal, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import AxiosBackend from '../../lib/axios/AxiosBackend';
 
 const uploadFromInitialState = {
@@ -15,23 +19,14 @@ const uploadFromInitialState = {
     size: '',
 };
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '1px solid #000',
-    borderRadius: "10px",
-    boxShadow: 24,
-    p: 4,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
-};
-
 const AdminPage = () => {
+
+
+    const [ expanded, setExpanded ] = React.useState('panel1');
+
+    const handleChange = (panel) => (event, newExpanded) => {
+        setExpanded(newExpanded ? panel : false);
+    };
 
     const user = useSelector(state => state.user);
     
@@ -90,172 +85,195 @@ const AdminPage = () => {
             })
     };
 
-  
-
     return (
         <Layout>
-            <Box p={4}>
-                <h2>Admin / control panel</h2>
-               
-                <div>
-                    <Button onClick={handleOpen}>Open modal</Button>
-                    <Modal
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="modal-modal-title"
-                        aria-describedby="modal-modal-description"
-                    >
-                        <Box sx={style}>
-                            <Box maxWidth={400}>
-                                <Box>
-                                    <h4>Upload Product</h4>
-                                </Box>
-                                <Box pb={3}>
-                                    <TextField
-                                        id="productId"
-                                        label="Product Id Number"
-                                        type="number"
-                                        variant="standard"
-                                        value={uploadProductForm.productId}
-                                        onChange={(event) => {
-                                            setUploadProductForm({ ...uploadProductForm, productId: event.target.value });
-                                        }}
-                                    />
-                                </Box>
-                                <Box pb={3}>
-                                    <TextField
-                                        id="brand"
-                                        label="Brand"
-                                        variant="standard"
-                                        value={uploadProductForm.brand}
-                                        onChange={(event) => {
-                                            setUploadProductForm({ ...uploadProductForm, brand: event.target.value });
-                                        }}
-                                    />
-                                </Box>
-                                <Box pb={3}>
-                                    <TextField
-                                        id="category"
-                                        label="Category"
-                                        variant="standard"
-                                        value={uploadProductForm.category}
-                                        onChange={(event) => {
-                                            setUploadProductForm({ ...uploadProductForm, category: event.target.value });
-                                        }}
-                                    />
-                                </Box>
-                                <Box pb={3}>
-                                    <TextField
-                                        id="description"
-                                        label="Description"
-                                        variant="standard"
-                                        value={uploadProductForm.description}
-                                        onChange={(event) => {
-                                            setUploadProductForm({ ...uploadProductForm, description: event.target.value });
-                                        }}
-                                    />
-                                </Box>
-                                <Box pb={3}>
-                                    <TextField
-                                        id="image"
-                                        label="Image URL"
-                                        variant="standard"
-                                        value={uploadProductForm.image}
-                                        onChange={(event) => {
-                                            setUploadProductForm({ ...uploadProductForm, image: event.target.value });
-                                        }}
-                                    />
-                                </Box>
-                                <Box pb={3}>
-                                    <TextField
-                                        id="price"
-                                        label="Price"
-                                        type="number"
-                                        variant="standard"
-                                        value={uploadProductForm.price}
-                                        onChange={(event) => {
-                                            setUploadProductForm({ ...uploadProductForm, price: Number(event.target.value) });
-                                        }}
-                                    />
-                                </Box>
-                                <Box pb={3}>
-                                    <TextField
-                                        id="size"
-                                        label="Size (oz)"
-                                        variant="standard"
-                                        value={uploadProductForm.size}
-                                        onChange={(event) => {
-                                            setUploadProductForm({ ...uploadProductForm, size: event.target.value });
-                                        }}
-                                    />
-                                </Box>
-                                <Box>
-                                    <Button variant="contained" onClick={onSubmit}>Upload product</Button>
-                                </Box>
+            <Box p={10}>
+                <Typography pb={4} variant="h4">Admin / Control Panel</Typography>
+                <Box>
+                    <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                            sx={{
+                                backgroundColor: '#c2ddff'
+                            }}
+                        >
+                            <Typography sx={{ mx: 5 }}>Upload New Product</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails sx={{ mx: 5 }}>
+                            <Box pb={3}>
+                                <TextField
+                                    sx={{ width: "100%" }}
+                                    id="productId"
+                                    label="Product Id Number"
+                                    type="number"
+                                    variant="standard"
+                                    value={uploadProductForm.productId}
+                                    onChange={(event) => {
+                                        setUploadProductForm({ ...uploadProductForm, productId: event.target.value });
+                                    }}
+                                />
                             </Box>
-                        </Box>
-                    </Modal>
-                </div>
-                <Box p={4}>
-                    <Link
-                        to={"/product-display"}
-                        state={{
-                            includes: [ "Chocolate" ],
-                            doesNotInclude: [ "Creamer" ]
-                        }}
-                    >
-                        <Button>
-                            Chocolate Milk
-                        </Button>
-                    </Link>
-                    <Link
-                        to={"/product-display"}
-                        state={{
-                            includes: [ "Creamer" ],
-                            doesNotInclude: [ "Powder" ]
-                        }}
-                    >
-                        <Button>
-                            Creamer
-                        </Button>
-                    </Link>
-                    <Link
-                        to={"/product-display"}
-                        state={{
-                            includes: [
-                                "Lactose",
-                                "Soy",
-                                "Almond",
-                                "Macademia",
-                                "Oat",
-                            ],
-                            doesNotInclude: [ "Creamer" ]
-                        }}
-                    >
-                        <Button>
-                            Lactose Free & Plant Based Milk
-                        </Button>
-                    </Link>
-                    <Link
-                        to={"/product-display"}
-                        state={{
-                            includes: [ "Milk" ],
-                            doesNotInclude: [
-                                "Lactose",
-                                "Soy",
-                                "Almond",
-                                "Macademia",
-                                "Oat",
-                                "Coconut",
-                                "Chocolate",
-                                "Creamer"
-                            ],
-                        }}
-                    >
-                        <Button>
-                            Natural Milk
-                        </Button>
-                    </Link>
+                            <Box pb={3}>
+                                <TextField
+                                    sx={{ width: "100%" }}
+                                    id="brand"
+                                    label="Brand"
+                                    variant="standard"
+                                    value={uploadProductForm.brand}
+                                    onChange={(event) => {
+                                        setUploadProductForm({ ...uploadProductForm, brand: event.target.value });
+                                    }}
+                                />
+                            </Box>
+                            <Box pb={3}>
+                                <TextField
+                                    sx={{ width: "100%" }}
+                                    id="category"
+                                    label="Category"
+                                    variant="standard"
+                                    value={uploadProductForm.category}
+                                    onChange={(event) => {
+                                        setUploadProductForm({ ...uploadProductForm, category: event.target.value });
+                                    }}
+                                />
+                            </Box>
+                            <Box pb={3}>
+                                <TextField
+                                    sx={{ width: "100%" }}
+                                    id="description"
+                                    label="Description"
+                                    variant="standard"
+                                    value={uploadProductForm.description}
+                                    onChange={(event) => {
+                                        setUploadProductForm({ ...uploadProductForm, description: event.target.value });
+                                    }}
+                                />
+                            </Box>
+                            <Box pb={3}>
+                                <TextField
+                                    sx={{ width: "100%" }}
+                                    id="image"
+                                    label="Image URL"
+                                    variant="standard"
+                                    value={uploadProductForm.image}
+                                    onChange={(event) => {
+                                        setUploadProductForm({ ...uploadProductForm, image: event.target.value });
+                                    }}
+                                />
+                            </Box>
+                            <Box pb={3}>
+                                <TextField
+                                    sx={{ width: "100%" }}
+                                    id="price"
+                                    label="Price"
+                                    type="number"
+                                    variant="standard"
+                                    value={uploadProductForm.price}
+                                    onChange={(event) => {
+                                        setUploadProductForm({ ...uploadProductForm, price: Number(event.target.value) });
+                                    }}
+                                />
+                            </Box>
+                            <Box pb={3}>
+                                <TextField
+                                    sx={{ width: "100%" }}
+                                    id="size"
+                                    label="Size (oz)"
+                                    variant="standard"
+                                    value={uploadProductForm.size}
+                                    onChange={(event) => {
+                                        setUploadProductForm({ ...uploadProductForm, size: event.target.value });
+                                    }}
+                                />
+                            </Box>
+                            <Box pb={2}>
+                                <Button variant="contained" onClick={onSubmit}>Upload product</Button>
+                            </Box>
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel2a-content"
+                            id="panel2a-header"
+                            sx={{
+                                backgroundColor: '#c2ddff'
+                            }}
+                        >
+                            <Typography sx={{ mx: 5 }}>Edit and/or Delete Products</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Box p={4}
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center"
+                                }}
+                            >
+                                <Link
+                                    to={"/product-display"}
+                                    state={{
+                                        includes: [ "Chocolate" ],
+                                        doesNotInclude: [ "Creamer" ]
+                                    }}
+                                >
+                                    <Button>
+                                        Chocolate Milk
+                                    </Button>
+                                </Link>
+                                <Link
+                                    to={"/product-display"}
+                                    state={{
+                                        includes: [ "Creamer" ],
+                                        doesNotInclude: [ "Powder" ]
+                                    }}
+                                >
+                                    <Button>
+                                        Creamer
+                                    </Button>
+                                </Link>
+                                <Link
+                                    to={"/product-display"}
+                                    state={{
+                                        includes: [
+                                            "Lactose",
+                                            "Soy",
+                                            "Almond",
+                                            "Macademia",
+                                            "Oat",
+                                        ],
+                                        doesNotInclude: [ "Creamer" ]
+                                    }}
+                                >
+                                    <Button>
+                                        Lactose Free & Plant Based Milk
+                                    </Button>
+                                </Link>
+                                <Link
+                                    to={"/product-display"}
+                                    state={{
+                                        includes: [ "Milk" ],
+                                        doesNotInclude: [
+                                            "Lactose",
+                                            "Soy",
+                                            "Almond",
+                                            "Macademia",
+                                            "Oat",
+                                            "Coconut",
+                                            "Chocolate",
+                                            "Creamer"
+                                        ],
+                                    }}
+                                >
+                                    <Button>
+                                        Natural Milk
+                                    </Button>
+                                </Link>
+                            </Box>
+                        </AccordionDetails>
+                    </Accordion>
                 </Box>
             </Box>
         </Layout>
