@@ -2,7 +2,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import ReplayIcon from '@mui/icons-material/Replay';
 import { Box, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { emptyCartActionCreator } from '../../reduxStore/cartState';
@@ -10,12 +10,20 @@ import CartItem from '../cards/CartItem';
 import Layout from '../layout/Layout';
 import AxiosBackend from '../../lib/axios/AxiosBackend';
 import { useNavigate } from "react-router-dom";
+import { signInActionCreator } from '../../reduxStore/userState';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const ShoppingCart = (props) => {
-
+    
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const cart = useSelector(state => state.cart);
-    const dispatch = useDispatch();
+    const user = useSelector(state => state.user);
 
     const total = cart.reduce((acc, cartItem) => {
         return acc + (cartItem.price * cartItem.quantity);
@@ -27,29 +35,45 @@ const ShoppingCart = (props) => {
    
     const handleCheckOut = async () => {
      
-        // let purchaseHistory = []
-        // const idArray = cart.map(item => item._id)
-        // purchaseHistory.push(idArray)
-        
-        // try {
+        if (user) {
 
-        //     let payload = await AxiosBackend.put(
-        //         'edit-user/',
-        //         {
-        //             userUpdateForm: {
-        //                 shoppingHistory: purchaseHistory
-        //             }
-        //         },
-        //     )
+            let purchaseHistory = []
+            const idArray = cart.map(item => item._id)
+            purchaseHistory.push(idArray)
 
-        //     dispatch(emptyCartActionCreator())
-        //     navigate('/')
+            try {
 
-        // } catch (e) {
+                let payload = await AxiosBackend.put(
+                    'checkout/',
+                    {
+                            id: purchaseHistory   
+                    },
+                )
+                    .then(response => {
+                        dispatch(signInActionCreator(response.data.user))
+                    })
 
-        //     console.log(e);
+                dispatch(emptyCartActionCreator())
+                navigate('/')
 
-        // }
+            } catch (e) {
+                console.log(e);
+            }   
+            
+        } else {
+          handleAlert()
+        }
+       
+    }
+    const [ open, setOpen ] = React.useState(false);
+    const handleAlert = () => {
+        setOpen(true);
+    };
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
     }
 
     return (
@@ -57,8 +81,7 @@ const ShoppingCart = (props) => {
             <Box fullwidth p={4}>
                 {cart.map(item => (
                     <Box mb={4} key={item.productId} sx={{ display: "flex", justifyContent: "center"}}>
-                        <CartItem
-                    
+                        <CartItem      
                             cartItem={{
                                 productId: item.productId,
                                 brand: item.brand,
@@ -83,6 +106,11 @@ const ShoppingCart = (props) => {
                         <Button sx={{ width: '220px' }} startIcon={<HomeIcon />} variant="contained">Back to home page</Button>
                     </Link>
                 </Box>
+                <Snackbar anchorOrigin={{ vertical: "bottom", horizontal: "center" }} open={open} autoHideDuration={6000} onClose={handleClose}>
+                    <Alert onClose={handleClose} severity="warning" sx={{ width: '100%', display: "flex", justifyContent: "center"}}>
+                        Please Log-in Before Checkout
+                    </Alert>
+                </Snackbar>
             </Box>
         </Layout>
     )

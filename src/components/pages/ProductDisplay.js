@@ -125,9 +125,7 @@ function ProductDisplay() {
                                                   setProductState={setProductState}
                                                   productState={productState}
                                               />
-
-                                          </Box>
-                                          
+                                          </Box>                        
                                       );
                                   })
                           ) : (

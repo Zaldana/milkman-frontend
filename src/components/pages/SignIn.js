@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { signInActionCreator } from '../../reduxStore/userState';
 import Layout from '../layout/Layout';
 import AxiosBackend from '../../lib/axios/AxiosBackend';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../layout/Layout';
 import { useSelector, useDispatch } from 'react-redux';
 import Accordion from '@mui/material/Accordion';
@@ -6,14 +6,30 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { SIGN_OUT_ACTION } from '../../reduxStore/userState';
-import { Box, Button, Card, TextField, Modal, Typography, Paper } from '@mui/material';
+import { Box, Button, TextField, Modal, Typography } from '@mui/material';
 import AxiosBackend from '../../lib/axios/AxiosBackend';
 import { useNavigate } from "react-router-dom";
-import backgroundImage from '../../images/userBackground.jpg'
+// import UserHistoryItem from "../cards/UserHistoryItem"
 
 function UserPage() {
-
+  
+  
   const user = useSelector(state => state.user);
+
+   //shopping history component///////////////////////////////////////////
+  // useEffect(() => {
+  // const [ products, setProducts ] = useState([])
+  //   async function fetchProducts() {
+  //     let productsResult = await AxiosBackend.get(
+  //       'get-products',
+  //     );
+  //     setProducts(productsResult.data)
+  //   }
+  //   fetchProducts()
+  // }, [])
+  // const product = products.filter(item => item._id.includes(user.shoppingHistory))
+/////////////////////////////////////////////////////////////////////////////////
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -55,7 +71,6 @@ function UserPage() {
   }
 
   const [ expanded, setExpanded ] = React.useState('panel1');
-
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
@@ -152,22 +167,26 @@ function UserPage() {
               </div>
           </AccordionDetails>
         </Accordion>
-        {/* <Accordion>
+        <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel2a-content"
             id="panel2a-header"
           >
               <Typography sx={{ mx: 5 }}>Shoping History</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-              malesuada lacus ex, sit amet blandit leo lobortis eget.
-            </Typography>
+              </AccordionSummary>
+              <AccordionDetails sx={{ mx: 1 }}>
+              {/* {
+                user.shoppingHistory.map((item) => (
+                 <Box>
+                  <UserHistoryItem
+                    productId={item}
+                    />
+                  </Box>
+              ))} */}
+          
           </AccordionDetails>
-        </Accordion> */}
-        
+        </Accordion>    
         </Box>
       </Box>
       </Box>
