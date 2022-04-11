@@ -2,8 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import {
     Box,
-    Button,
-    Typography
+    Button
 } from '@mui/material';
 
 
@@ -29,7 +28,8 @@ function Buttons() {
                     variant="contained"
                     size="large"
                     style={{
-                        margin: 10
+                        margin: 10,
+                        textDecoration: "none"
                     }}
                 >
                     Chocolate Milk

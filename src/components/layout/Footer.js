@@ -7,9 +7,7 @@ function Footer() {
   return (
       <AppBar position="static" color="primary" sx={{ top: 'auto', bottom: 0 }}>
           <Toolbar>
-              
               <Box sx={{ flexGrow: 1 }} />
-              
           </Toolbar>
       </AppBar>
   )

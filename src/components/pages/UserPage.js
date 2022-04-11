@@ -9,27 +9,11 @@ import { SIGN_OUT_ACTION } from '../../reduxStore/userState';
 import { Box, Button, TextField, Modal, Typography } from '@mui/material';
 import AxiosBackend from '../../lib/axios/AxiosBackend';
 import { useNavigate } from "react-router-dom";
-// import UserHistoryItem from "../cards/UserHistoryItem"
+import UserHistoryItem from "../cards/UserHistoryItem"
 
 function UserPage() {
   
-  
   const user = useSelector(state => state.user);
-
-   //shopping history component///////////////////////////////////////////
-  // useEffect(() => {
-  // const [ products, setProducts ] = useState([])
-  //   async function fetchProducts() {
-  //     let productsResult = await AxiosBackend.get(
-  //       'get-products',
-  //     );
-  //     setProducts(productsResult.data)
-  //   }
-  //   fetchProducts()
-  // }, [])
-  // const product = products.filter(item => item._id.includes(user.shoppingHistory))
-/////////////////////////////////////////////////////////////////////////////////
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -42,7 +26,7 @@ function UserPage() {
     lastName: '',
     address: '',
   })
-
+  
   async function handleUpdateUser(e) {
 
     e.preventDefault();
@@ -94,7 +78,7 @@ function UserPage() {
               id="panel1a-header"
                 style={{ background: '#c2ddff' }}
           >
-                <Typography sx={{ fontWeight: 'bold', mx: 1 }}>{user.firstName}'s Profile</Typography>
+            <Typography sx={{ fontWeight: 'bold', mx: 1 }}>{user.firstName}'s Profile</Typography>
           </AccordionSummary>
             <AccordionDetails sx={{ mx: 1 }}>
               <br />
@@ -168,23 +152,25 @@ function UserPage() {
           </AccordionDetails>
         </Accordion>
         <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2a-content"
-            id="panel2a-header"
-          >
-              <Typography sx={{ mx: 5 }}>Shoping History</Typography>
-              </AccordionSummary>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel2a-header"
+                  style={{ background: '#c2ddff' }}
+                >
+                <Typography sx={{ fontWeight: 'bold', mx: 1 }}>Shopping History</Typography>
+                </AccordionSummary>
               <AccordionDetails sx={{ mx: 1 }}>
-              {/* {
-                user.shoppingHistory.map((item) => (
-                 <Box>
-                  <UserHistoryItem
-                    productId={item}
-                    />
-                  </Box>
-              ))} */}
-          
+              {
+                  user.shoppingHistory.map((item) => 
+                    <Box>
+                      <UserHistoryItem
+                        productId={item}
+                      />
+                      
+                    </Box>
+                  )
+              }
           </AccordionDetails>
         </Accordion>    
         </Box>

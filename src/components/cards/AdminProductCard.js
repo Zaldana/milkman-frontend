@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import AxiosBackend from '../../lib/axios/AxiosBackend';
 
 import {
     Box,
     Button,
     Card,
-    CardHeader,
     CardMedia,
     CardActions,
     CardContent,

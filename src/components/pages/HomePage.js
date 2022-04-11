@@ -16,7 +16,6 @@ const HomePage = (props) => {
 
     function getMultipleRandom(arr, num) {
         const shuffled = [ ...arr ].sort(() => 0.5 - Math.random());
-
         return shuffled.slice(0, num);
     }
 
@@ -52,7 +51,6 @@ const HomePage = (props) => {
                
                 <Box
                     sx={{
-                      
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",

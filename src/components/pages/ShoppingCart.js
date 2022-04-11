@@ -37,16 +37,14 @@ const ShoppingCart = (props) => {
      
         if (user) {
 
-            let purchaseHistory = []
             const idArray = cart.map(item => item._id)
-            purchaseHistory.push(idArray)
 
             try {
-
+         
                 let payload = await AxiosBackend.put(
                     'checkout/',
                     {
-                            id: purchaseHistory   
+                        id: idArray
                     },
                 )
                     .then(response => {

@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Stack from '@mui/material/Stack';
-import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import { useSelector } from 'react-redux';
-import AxiosBackend from '../../lib/axios/AxiosBackend';
 import { Link } from 'react-router-dom';
 import {
-    Box,
     Button
 } from '@mui/material';
 
@@ -52,7 +48,7 @@ function Search() {
                     doesNotInclude: [ "Powder" ]
                 }}
             >
-                <Button variant="contained" >
+                <Button sx={{ textDecoration: "none"}} variant="contained" >
                    Search
                 </Button>
             </Link>
