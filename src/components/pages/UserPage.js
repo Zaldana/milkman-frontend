@@ -34,13 +34,13 @@ function UserPage() {
     try {
 
       let payload = await AxiosBackend.put(
-        'edit-user/',
+        'user/edit-user/',
         {
           userUpdateForm: userUpdateForm
         },
       )
         .then(
-          AxiosBackend.get('/sign-out').then(() => {
+          AxiosBackend.get('user/sign-out').then(() => {
             dispatch({ type: SIGN_OUT_ACTION });
           }).catch(error => console.log('there was an error signing out')),
 

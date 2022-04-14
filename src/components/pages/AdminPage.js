@@ -43,7 +43,7 @@ const AdminPage = () => {
     const onSubmit = () => {
 
         AxiosBackend.post(
-            '/upload-product',
+            'products/upload-product',
             {
                 productData: {
                     productId: uploadProductForm.productId,

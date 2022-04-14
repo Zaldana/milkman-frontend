@@ -23,7 +23,7 @@ const HomePage = (props) => {
 
         async function fetchProducts() {
             let productsResult = await AxiosBackend.get(
-                'get-products',
+                'products/get-products',
             );
             setPreviewProducts(getMultipleRandom(productsResult.data, 4))
         }

@@ -35,7 +35,7 @@ function SignIn() {
         try {
 
             let payload = await AxiosBackend.post(
-                'sign-in/', {
+                'user/sign-in/', {
                     userCredentials: signInForm
                 },
             )

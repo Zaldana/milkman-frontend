@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let url = "http://localhost:3001/"
+let url = "https://milkman-store.herokuapp.com/api/"
 
 const AxiosBackend = axios.create({
     baseURL: url,

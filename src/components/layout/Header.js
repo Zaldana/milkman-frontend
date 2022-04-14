@@ -52,7 +52,7 @@ const Header = () => {
     const handleCloseUserMenuSignedIn = () => {
         
         setAnchorElUser(null);
-        AxiosBackend.get('/sign-out').then(() => {
+        AxiosBackend.get('user/sign-out').then(() => {
             dispatch({ type: SIGN_OUT_ACTION });
         }).catch(error => console.log('there was an error signing out'))
     };

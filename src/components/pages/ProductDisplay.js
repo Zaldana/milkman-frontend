@@ -24,7 +24,7 @@ function ProductDisplay() {
 
         async function fetchProducts() {
             let productsResult = await AxiosBackend.get(
-                'get-products',
+                'products/get-products',
             );
             
             setProductState(productsResult.data)
@@ -65,7 +65,7 @@ function ProductDisplay() {
               <Search />
           </Box>
           <Box
-              pl={6} pr={6}
+              pl={4} pr={6}
               style={{
                   height: "auto",
                   display: "flex",

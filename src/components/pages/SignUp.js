@@ -32,7 +32,7 @@ function SignIn() {
         try {
 
             let payload = await AxiosBackend.post(
-                'create-user/', {
+                'user/create-user/', {
                 user: signUpForm
             },
             )

@@ -78,10 +78,10 @@ export default function AdminProductCard(props) {
         try {
             
             await AxiosBackend.delete(
-                `/delete-product/${product._id}`
+                `products/delete-product/${product._id}`
             )
             let updatedArray = await AxiosBackend.get(
-                'get-products',
+                'products/get-products',
             );
             setProductState(updatedArray.data)
         
@@ -95,7 +95,7 @@ export default function AdminProductCard(props) {
 
         try {
             AxiosBackend.put(
-                `/update-product/${product._id}`,
+                `products/update-product/${product._id}`,
                 {
                     productData: {
                         productId: uploadProductForm.productId,
@@ -128,7 +128,7 @@ export default function AdminProductCard(props) {
             )
 
             let updatedArray = await AxiosBackend.get(
-                'get-products',
+                'products/get-products',
             );
             setProductState(updatedArray.data)
             handleClose()

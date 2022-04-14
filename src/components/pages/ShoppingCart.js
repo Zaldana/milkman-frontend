@@ -42,7 +42,7 @@ const ShoppingCart = (props) => {
             try {
          
                 let payload = await AxiosBackend.put(
-                    'checkout/',
+                    'user/checkout/',
                     {
                         id: idArray
                     },

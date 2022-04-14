@@ -22,7 +22,7 @@ export default function (props) {
 
         async function fetchProducts() {
             let productsResult = await AxiosBackend.get(
-                'get-products',
+                'products/get-products',
             );
 
             setProductState(productsResult.data)
