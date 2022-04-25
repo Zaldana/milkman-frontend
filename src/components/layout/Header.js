@@ -22,7 +22,8 @@ import {
 
 const dropdownMenu = [
     { text: "Log-In", link: "/sign-in"},
-    { text: "Sign-Up", link: "/sign-up"}
+    { text: "Sign-Up", link: "/sign-up" },
+    { text: "Demo", link: "/demo"}
 ];
 
 const dropdownMenuSignedIn = [

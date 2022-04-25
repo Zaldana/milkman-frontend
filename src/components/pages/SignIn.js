@@ -13,9 +13,7 @@ import {
     Stack,
     TextField,
     CardContent,
-    Alert
 } from '@mui/material';
-
 
 function SignIn() {
 
@@ -49,11 +47,9 @@ function SignIn() {
 
                     } else {
 
-                        navigate('/user')
+                        navigate('/product-display')
                     }
                 })
-            
-           
            
         } catch (e) {
 
@@ -82,7 +78,7 @@ function SignIn() {
                     marginTop: 10,
                 }}>
                     <CardContent >
-                        <Typography variant="h3" pb={3}>Log In</Typography>
+                        <Typography variant="h3" pb={3}>Log-In</Typography>
                         <Stack
                             component="form"
                             sx={{

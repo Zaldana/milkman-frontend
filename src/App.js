@@ -15,6 +15,7 @@ import {
   Routes
 } from "react-router-dom";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
+import Demo from "./components/pages/Demo";
 
 function App() {
   
@@ -31,6 +32,7 @@ function App() {
                 }
             />
             <Route path="shopping-cart" element={<ShoppingCart />} />
+            <Route path="demo" element={<Demo />} />
             <Route path="sign-in" element={<SignIn />} />
             <Route path="sign-up" element={<SignUp />} />
             <Route path="user" element={<UserPage />} />
