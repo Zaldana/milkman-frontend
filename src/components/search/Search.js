@@ -47,13 +47,14 @@ function Search() {
                     includes: [ search ],
                     doesNotInclude: [ "Powder" ]
                 }}
+                style={{
+                    textDecoration: "none"
+                }}
             >
                 <Button sx={{ textDecoration: "none"}} variant="contained" >
                    Search
                 </Button>
             </Link>
-                
-
         </Stack>
     )
 }

@@ -23,13 +23,15 @@ function Buttons() {
                     includes: [ "Chocolate" ],
                     doesNotInclude: [ "Creamer" ]
                 }}
+                style={{
+                    textDecoration: "none"
+                }}
             >
                 <Button
                     variant="contained"
                     size="large"
                     style={{
-                        margin: 10,
-                        textDecoration: "none"
+                        margin: 10
                     }}
                 >
                     Chocolate Milk
@@ -40,6 +42,9 @@ function Buttons() {
                 state={{
                     includes: [ "Creamer" ],
                     doesNotInclude: [ "Powder" ]
+                }}
+                style={{
+                    textDecoration: "none"
                 }}
             >
                 <Button
@@ -62,6 +67,9 @@ function Buttons() {
                         "Oat",
                     ],
                     doesNotInclude: [ "Creamer" ]
+                }}
+                style={{
+                    textDecoration: "none"
                 }}
             >
                 <Button
@@ -88,6 +96,9 @@ function Buttons() {
                         "Chocolate",
                         "Creamer"
                     ],
+                }}
+                style={{
+                    textDecoration: "none"
                 }}
             >
                 <Button
